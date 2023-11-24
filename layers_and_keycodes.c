@@ -40,9 +40,10 @@ enum planck_keycodes {
     KO_CMDV,
     KO_CMDD,
     KO_MTAB,
+    KO_LXCM,
     KO_JIS,
     KO_PRNT,
-    KO_SWIT,
+    KO_RSET,
     LT_FNC,
     MT_SPC,
 };

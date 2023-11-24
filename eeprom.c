@@ -17,6 +17,7 @@ typedef union {
         bool override_cmd_v: 1;
         bool override_cmd_d: 1;
         bool override_modded_esc: 1;
+        bool override_linux_cmd: 1;
         bool is_jis_mode: 1;
         bool is_macos: 1;
         bool is_windows: 1;

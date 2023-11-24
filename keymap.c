@@ -243,7 +243,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 react_on_toggle(cur_status);
             }
             return false;
-
+        case KO_LXCM:
+            if (record->event.pressed) {
+                user_config.override_linux_cmd = user_config.override_linux_cmd ? false : true;
+                switch_linux_cmd(user_config.override_linux_cmd);
+                eeconfig_update_user(user_config.raw);
+                react_key_press_by_RGB(HSV_ORANGE);
+            }
+            return false;
 
         case KO_JIS:
             if (record->event.pressed) {
@@ -268,9 +275,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
 
-        case KO_SWIT:
+        case KO_RSET:
             if (record->event.pressed) {
-                switch_all_overrides_eeprom(!user_config.override_enter);
+                reset_overrides_to_default();
                 react_key_press_by_RGB(HSV_ORANGE);
             }
             return false;
@@ -290,26 +297,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
 
                 if (key_override_is_enabled()) {
-                    if (user_config.override_home) SEND_STRING(" home");
-                    if (user_config.override_word_move) SEND_STRING(" wordmv");
+                    if (user_config.override_modded_esc) SEND_STRING(" modesc");
+                    if (user_config.override_enter) SEND_STRING(" ent");
+                    if (user_config.override_backspace) SEND_STRING(" bksp");
+                    if (user_config.override_tab) SEND_STRING(" tab");
+                    if (user_config.override_arrows) SEND_STRING(" arrow");
+                    if (user_config.override_delete) SEND_STRING(" del");
                     if (user_config.override_word_del) SEND_STRING(" worddel");
+                    if (user_config.override_word_move) SEND_STRING(" wordmv");
+                    if (user_config.override_home) SEND_STRING(" home");
+                    if (user_config.override_end) SEND_STRING(" end");
+                    if (user_config.override_cmd_v) SEND_STRING(" cmdv");
+                    if (user_config.spc_tap) SEND_STRING(" spctap");
+
+                    SEND_STRING(" \\");
+
+                    if (user_config.override_linux_cmd) SEND_STRING(" linuxcmd");
+
                     if (user_config.override_ctrl_k) SEND_STRING(" ctrlk");
                     if (user_config.override_ctrl_o) SEND_STRING(" ctrlo");
                     if (user_config.override_ctrl_u) SEND_STRING(" ctrlu");
-                    if (user_config.is_jis_mode) SEND_STRING(" jis");
-                    if (user_config.override_delete) SEND_STRING(" del");
-                    if (user_config.override_backspace) SEND_STRING(" bksp");
-                    if (user_config.override_enter) SEND_STRING(" ent");
-                    if (user_config.override_end) SEND_STRING(" end");
-                    if (user_config.override_tab) SEND_STRING(" tab");
-                    if (user_config.override_arrows) SEND_STRING(" arrow");
-                    if (user_config.override_cmd_space) SEND_STRING(" cmdspace");
-                    if (user_config.override_cmd_v) SEND_STRING(" cmdv");
-                    if (user_config.override_cmd_d) SEND_STRING(" cmdd");
-                    if (user_config.override_modded_esc) SEND_STRING(" modesc");
-                    if (user_config.fnc_tap) SEND_STRING(" fnctap");
-                    if (user_config.spc_tap) SEND_STRING(" spctap");
 
+                    if (user_config.fnc_tap) SEND_STRING(" fnctap");
+                    if (user_config.override_cmd_d) SEND_STRING(" cmdd");
+
+                    if (user_config.is_jis_mode) SEND_STRING(" jis");
+
+                    if (user_config.override_cmd_space) SEND_STRING(" cmdspace");
                 } else {
                     SEND_STRING(" override disabled");
                 }

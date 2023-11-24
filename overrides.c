@@ -1,3 +1,5 @@
+#include QMK_KEYBOARD_H
+
 user_config_t user_config;
 
 bool delete_line_forward(bool key_down, void *layer) {
@@ -124,6 +126,35 @@ key_override_t alt_tab_override  = ko_make_basic(MOD_BIT(KC_RALT), KC_ESC, RALT(
 key_override_t cmd_tab_override  = ko_make_basic(MOD_BIT(KC_LGUI), KC_ESC, LGUI(KC_TAB));
 key_override_t shift_tab_override = ko_make_basic(MOD_BIT(KC_RSFT), KC_ESC, RSFT(KC_TAB));
 
+key_override_t linux_a_override = ko_make_basic(MOD_BIT(KC_LGUI), KC_A, LCTL(KC_A));
+key_override_t linux_b_override = ko_make_basic(MOD_BIT(KC_LGUI), KC_B, LCTL(KC_B));
+key_override_t linux_c_override = ko_make_basic(MOD_BIT(KC_LGUI), KC_C, KC_COPY);
+key_override_t linux_d_override = ko_make_basic(MOD_BIT(KC_LGUI), KC_D, KC_PASTE);
+key_override_t linux_e_override = ko_make_basic(MOD_BIT(KC_LGUI), KC_E, LCTL(KC_E));
+key_override_t linux_f_override = ko_make_basic(MOD_BIT(KC_LGUI), KC_F, LCTL(KC_F));
+key_override_t linux_g_override = ko_make_basic(MOD_BIT(KC_LGUI), KC_G, LCTL(KC_G));
+key_override_t linux_h_override = ko_make_basic(MOD_BIT(KC_LGUI), KC_H, LCTL(KC_H));
+key_override_t linux_i_override = ko_make_basic(MOD_BIT(KC_LGUI), KC_I, LCTL(KC_I));
+key_override_t linux_j_override = ko_make_basic(MOD_BIT(KC_LGUI), KC_J, LCTL(KC_J));
+key_override_t linux_k_override = ko_make_basic(MOD_BIT(KC_LGUI), KC_K, LCTL(KC_K));
+key_override_t linux_l_override = ko_make_basic(MOD_BIT(KC_LGUI), KC_L, LCTL(KC_L));
+key_override_t linux_m_override = ko_make_basic(MOD_BIT(KC_LGUI), KC_M, LCTL(KC_M));
+key_override_t linux_n_override = ko_make_basic(MOD_BIT(KC_LGUI), KC_N, LCTL(KC_N));
+key_override_t linux_o_override = ko_make_basic(MOD_BIT(KC_LGUI), KC_O, LCTL(KC_O));
+key_override_t linux_p_override = ko_make_basic(MOD_BIT(KC_LGUI), KC_P, LCTL(KC_P));
+key_override_t linux_q_override = ko_make_basic(MOD_BIT(KC_LGUI), KC_Q, LCTL(KC_Q));
+key_override_t linux_r_override = ko_make_basic(MOD_BIT(KC_LGUI), KC_R, LCTL(KC_R));
+key_override_t linux_s_override = ko_make_basic(MOD_BIT(KC_LGUI), KC_S, LCTL(KC_S));
+key_override_t linux_t_override = ko_make_basic(MOD_BIT(KC_LGUI), KC_T, LCTL(KC_T));
+key_override_t linux_u_override = ko_make_basic(MOD_BIT(KC_LGUI), KC_U, LCTL(KC_U));
+key_override_t linux_v_override = ko_make_basic(MOD_BIT(KC_LGUI), KC_V, LCTL(KC_V));
+key_override_t linux_w_override = ko_make_basic(MOD_BIT(KC_LGUI), KC_W, LCTL(KC_W));
+key_override_t linux_x_override = ko_make_basic(MOD_BIT(KC_LGUI), KC_X, KC_CUT);
+key_override_t linux_y_override = ko_make_basic(MOD_BIT(KC_LGUI), KC_Y, LCTL(KC_Y));
+key_override_t linux_z_override = ko_make_basic(MOD_BIT(KC_LGUI), KC_Z, LCTL(KC_Z));
+key_override_t linux_com_override = ko_make_basic(MOD_BIT(KC_LGUI), KC_COMM, LCTL(KC_COMM));
+key_override_t linux_dot_override = ko_make_basic(MOD_BIT(KC_LGUI), KC_DOT, LCTL(KC_DOT));
+
 key_override_t ctrl_k_key_override = {
     .trigger_mods           = MOD_BIT(KC_LCTL),
     .layers                 = ~0,
@@ -203,6 +234,37 @@ void switch_jis(bool enabled) {
     switch_override(&jis_s_scln_override, enabled);
     switch_override(&jis_s_quot_override, enabled);
     switch_override(&jis_s_grv_override, enabled);
+}
+
+void switch_linux_cmd(bool enable) {
+    switch_override(&linux_a_override, enable);
+    switch_override(&linux_b_override, enable);
+    switch_override(&linux_c_override, enable);
+    switch_override(&linux_d_override, enable);
+    switch_override(&linux_e_override, enable);
+    switch_override(&linux_f_override, enable);
+    switch_override(&linux_g_override, enable);
+    switch_override(&linux_h_override, enable);
+    switch_override(&linux_i_override, enable);
+    switch_override(&linux_j_override, enable);
+    switch_override(&linux_k_override, enable);
+    switch_override(&linux_l_override, enable);
+    switch_override(&linux_m_override, enable);
+    switch_override(&linux_n_override, enable);
+    switch_override(&linux_o_override, enable);
+    switch_override(&linux_p_override, enable);
+    switch_override(&linux_q_override, enable);
+    switch_override(&linux_r_override, enable);
+    switch_override(&linux_s_override, enable);
+    switch_override(&linux_t_override, enable);
+    switch_override(&linux_u_override, enable);
+    switch_override(&linux_v_override, enable);
+    switch_override(&linux_w_override, enable);
+    switch_override(&linux_x_override, enable);
+    switch_override(&linux_y_override, enable);
+    switch_override(&linux_z_override, enable);
+    switch_override(&linux_com_override, enable);
+    switch_override(&linux_dot_override, enable);
 }
 
 void enable_all_overrides(void) {
@@ -325,6 +387,35 @@ const key_override_t **key_overrides = (const key_override_t *[]){
     &alt_tab_override,
     &cmd_tab_override,
     &shift_tab_override,
+
+    &linux_a_override,
+    &linux_b_override,
+    &linux_c_override,
+    &linux_d_override,
+    &linux_e_override,
+    &linux_f_override,
+    &linux_g_override,
+    &linux_h_override,
+    &linux_i_override,
+    &linux_j_override,
+    &linux_k_override,
+    &linux_l_override,
+    &linux_m_override,
+    &linux_n_override,
+    &linux_o_override,
+    &linux_p_override,
+    &linux_q_override,
+    &linux_r_override,
+    &linux_s_override,
+    &linux_t_override,
+    &linux_u_override,
+    &linux_v_override,
+    &linux_w_override,
+    &linux_x_override,
+    &linux_y_override,
+    &linux_z_override,
+    &linux_com_override,
+    &linux_dot_override,
 
     &jis_at_override,
     &jis_circ_override,

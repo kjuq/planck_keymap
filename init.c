@@ -1,35 +1,7 @@
-void init_macos(void) {
-    switch_all_overrides_eeprom(false);
-    user_config.is_macos = true;
-    user_config.is_windows = false;
-    user_config.is_linux = false;
+void reset_overrides_to_default(void) {
 
-    toggle_word_override(true);
-    user_config.override_word_move = true;
-
-    toggle_word_del_override(true);
-    user_config.override_word_del = true;
-
-    switch_override(&cmd_v_override, true);
-    user_config.override_cmd_v = true;
-
-    switch_override(&enter_key_override, true);
-    user_config.override_enter = true;
-
-    switch_override(&tab_key_override, true);
-    user_config.override_tab = true;
-
-    switch_override(&bs_key_override, true);
-    user_config.override_backspace = true;
-
-    switch_override(&del_key_override, true);
-    user_config.override_delete = true;
-
-    switch_override(&up_key_override, true);
-    switch_override(&down_key_override, true);
-    switch_override(&right_key_override, true);
-    switch_override(&left_key_override, true);
-    user_config.override_arrows = true;
+    disable_all_overrides();
+    user_config.raw = 0;
 
     switch_override(&ctrl_tab_override, true);
     switch_override(&alt_tab_override, true);
@@ -37,9 +9,51 @@ void init_macos(void) {
     switch_override(&shift_tab_override, true);
     user_config.override_modded_esc = true;
 
+    switch_override(&enter_key_override, true);
+    user_config.override_enter = true;
+
+    switch_override(&bs_key_override, true);
+    user_config.override_backspace = true;
+
+    switch_override(&tab_key_override, true);
+    user_config.override_tab = true;
+
+    switch_override(&up_key_override, true);
+    switch_override(&down_key_override, true);
+    switch_override(&right_key_override, true);
+    switch_override(&left_key_override, true);
+    user_config.override_arrows = true;
+
+    switch_override(&del_key_override, true);
+    user_config.override_delete = true;
+
+    toggle_word_del_override(true);
+    user_config.override_word_del = true;
+
+    toggle_word_override(true);
+    user_config.override_word_move = true;
+
+    switch_override(&home_key_override, true);
+    user_config.override_home = true;
+
+    switch_override(&end_key_override, true);
+    user_config.override_end = true;
+
+    switch_override(&cmd_v_override, true);
+    user_config.override_cmd_v = true;
+
     default_layer_or((layer_state_t)1 << _SPC_TAP);
     default_layer_xor((layer_state_t)1 << _SPC_TAP);
     user_config.spc_tap = false;
+
+    eeconfig_update_user(user_config.raw);
+}
+
+void init_macos(void) {
+    switch_all_overrides_eeprom(false);
+    user_config.is_macos = true;
+    user_config.is_windows = false;
+    user_config.is_linux = false;
 
     eeconfig_update_user(user_config.raw);
 }
@@ -50,16 +64,6 @@ void init_windows(void) {
     user_config.is_windows = true;
     user_config.is_linux = false;
 
-    toggle_word_override(true);
-    toggle_word_del_override(true);
-
-    default_layer_or((layer_state_t)1 << _SPC_TAP);
-    default_layer_xor((layer_state_t)1 << _SPC_TAP);
-    user_config.spc_tap = false;
-
-    switch_jis(false);
-    user_config.is_jis_mode = false;
-
     eeconfig_update_user(user_config.raw);
 }
 
@@ -68,16 +72,6 @@ void init_linux(void) {
     user_config.is_macos = false;
     user_config.is_windows = false;
     user_config.is_linux = true;
-
-    toggle_word_override(false);
-    toggle_word_del_override(false);
-
-    default_layer_or((layer_state_t)1 << _SPC_TAP);
-    default_layer_xor((layer_state_t)1 << _SPC_TAP);
-    user_config.spc_tap = false;
-
-    switch_jis(false);
-    user_config.is_jis_mode = false;
 
     eeconfig_update_user(user_config.raw);
 }
