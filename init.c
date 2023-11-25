@@ -93,18 +93,6 @@ void reload_user_eeprom(void) {
         switch_override(&right_key_override, false);
         switch_override(&left_key_override, false);
     }
-    if (!user_config.override_home) {
-        switch_override(&home_key_override, false);
-    }
-    if (!user_config.override_end) {
-        switch_override(&end_key_override, false);
-    }
-    if (!user_config.override_ctrl_k) {
-        switch_override(&ctrl_k_key_override, false);
-    }
-    if (!user_config.override_ctrl_o) {
-        switch_override(&ctrl_o_key_override, false);
-    }
     if (!user_config.override_ctrl_u) {
         switch_override(&ctrl_u_key_override, false);
     }
@@ -138,6 +126,14 @@ void reload_user_eeprom(void) {
         switch_override(&cmd_tab_override, false);
         switch_override(&shift_tab_override, false);
     }
+
+    if (user_config.is_macos || user_config.is_ios || !user_config.override_home) {
+        switch_override(&home_key_override, false);
+    }
+    if (user_config.is_macos || user_config.is_ios || !user_config.override_end) {
+        switch_override(&end_key_override, false);
+    }
+
 
     if (!user_config.override_linux_cmd) {
         switch_linux_cmd(false);

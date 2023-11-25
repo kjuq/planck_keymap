@@ -2,34 +2,6 @@
 
 user_config_t user_config;
 
-bool delete_line_forward(bool key_down, void *layer) {
-    if (key_down) {
-        register_code(KC_RSFT);
-        tap_code(KC_END);
-        unregister_code(KC_RSFT);
-        tap_code(KC_DEL);
-    }
-    return false;
-}
-
-bool delete_line_backward(bool key_down, void *layer) {
-    if (key_down) {
-        register_code(KC_RSFT);
-        tap_code(KC_HOME);
-        unregister_code(KC_RSFT);
-        tap_code(KC_DEL);
-    }
-    return false;
-}
-
-bool add_CR_forward(bool key_down, void *layer) {
-    if (key_down) {
-        tap_code(KC_ENT);
-        tap_code(KC_LEFT);
-    }
-    return false;
-}
-
 inline static void enter_layer(uint8_t layer, uint8_t hue, uint8_t sat, uint8_t val) {
     #ifdef AUDIO_ENABLE
     stop_all_notes();
@@ -157,44 +129,7 @@ key_override_t linux_z_override = ko_make_basic(MOD_BIT(KC_LGUI), KC_Z, LCTL(KC_
 key_override_t linux_com_override = ko_make_basic(MOD_BIT(KC_LGUI), KC_COMM, LCTL(KC_COMM));
 key_override_t linux_dot_override = ko_make_basic(MOD_BIT(KC_LGUI), KC_DOT, LCTL(KC_DOT));
 
-key_override_t ctrl_k_key_override = {
-    .trigger_mods           = MOD_BIT(KC_LCTL),
-    .layers                 = ~0,
-    .suppressed_mods        = MOD_BIT(KC_LCTL),
-    .options                = ko_options_default,
-    .negative_mod_mask      = MOD_MASK_SAG,
-    .custom_action          = delete_line_forward,
-    .context                = NULL,
-    .trigger                = KC_K,
-    .replacement            = KC_NO,
-    .enabled                = NULL
-};
-
-key_override_t ctrl_o_key_override = {
-    .trigger_mods           = MOD_BIT(KC_LCTL),
-    .layers                 = ~0,
-    .suppressed_mods        = MOD_BIT(KC_LCTL),
-    .options                = ko_options_default,
-    .negative_mod_mask      = MOD_MASK_SAG,
-    .custom_action          = add_CR_forward,
-    .context                = NULL,
-    .trigger                = KC_O,
-    .replacement            = KC_NO,
-    .enabled                = NULL
-};
-
-key_override_t ctrl_u_key_override = {
-    .trigger_mods           = MOD_BIT(KC_LCTL),
-    .layers                 = ~0,
-    .suppressed_mods        = MOD_BIT(KC_LCTL),
-    .options                = ko_options_default,
-    .negative_mod_mask      = MOD_MASK_SAG,
-    .custom_action          = delete_line_backward,
-    .context                = NULL,
-    .trigger                = KC_U,
-    .replacement            = KC_NO,
-    .enabled                = NULL
-};
+key_override_t ctrl_u_key_override = ko_make_basic(MOD_BIT(KC_LCTL), KC_U, LCMD(KC_BSPC));
 
 void switch_override(key_override_t *override, bool enabled) {
     override->enabled = enabled ? NULL : &false_const;
@@ -339,8 +274,6 @@ const key_override_t **key_overrides = (const key_override_t *[]){
     &del_key_override,
     &home_key_override,
     &end_key_override,
-    &ctrl_k_key_override,
-    &ctrl_o_key_override,
     &ctrl_u_key_override,
     &cmd_space_override,
 
