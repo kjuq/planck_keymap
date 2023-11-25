@@ -8,6 +8,11 @@
 #include "init.c"
 #include "utils.c"
 
+#include "os_detection.h"
+
+bool is_apple;
+bool is_lnxwin;
+
 void oneshot_layer_changed_user(uint8_t layer) {
     if (layer == _MODS || layer == _ORS) {
         disable_all_overrides();
@@ -43,6 +48,23 @@ void keyboard_post_init_user(void) {
     // debug_matrix=true;
     // debug_keyboard=true;
     // debug_mouse=true;
+
+    wait_ms(400);
+
+    if (detected_host_os() == OS_MACOS) {
+        init_macos();
+    } else if (detected_host_os() == OS_IOS) {
+        init_ios();
+    } else if (detected_host_os() == OS_LINUX) {
+        init_linux();
+    } else if (detected_host_os() == OS_WINDOWS) {
+        init_windows();
+    } else {
+        init_unsure();
+    }
+
+    is_apple = user_config.is_macos || user_config.is_ios;
+    is_lnxwin = user_config.is_linux || user_config.is_windows;
 
     reload_user_eeprom();
 }
@@ -223,23 +245,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case KO_WD:
             if (record->event.pressed) {
-                const bool cur_status = user_config.override_word_move;
-                user_config.override_word_move = cur_status ? false : true;
+                bool cur_status;
+                if (is_apple) {
+                    cur_status = user_config.override_word_mv_apl;
+                    user_config.override_word_mv_apl = cur_status ? false : true;
+                } else {
+                    cur_status = user_config.override_word_mv_lnx;
+                    user_config.override_word_mv_lnx = cur_status ? false : true;
+                }
                 eeconfig_update_user(user_config.raw);
-
-                toggle_word_override(!cur_status);
-
+                reload_user_eeprom();
                 react_on_toggle(cur_status);
             }
             return false;
         case KO_WDDL:
             if (record->event.pressed) {
-                const bool cur_status = user_config.override_word_del;
-                user_config.override_word_del = cur_status ? false : true;
+                bool cur_status;
+                if (is_apple) {
+                    cur_status = user_config.override_word_dl_apl;
+                    user_config.override_word_dl_apl = cur_status ? false : true;
+                } else {
+                    cur_status = user_config.override_word_dl_lnx;
+                    user_config.override_word_dl_lnx = cur_status ? false : true;
+                }
                 eeconfig_update_user(user_config.raw);
-
-                toggle_word_del_override(!cur_status);
-
+                reload_user_eeprom();
                 react_on_toggle(cur_status);
             }
             return false;
@@ -278,6 +308,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KO_RSET:
             if (record->event.pressed) {
                 reset_overrides_to_default();
+                reload_user_eeprom();
                 react_key_press_by_RGB(HSV_ORANGE);
             }
             return false;
@@ -286,7 +317,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 tap_code(KC_LNG2);
                 register_code(KC_LSFT);
-                tap_code16(KC_LABK);
+                tap_code16(KC_LBRC);
 
                 if (user_config.is_macos) {
                     SEND_STRING(" macos");
@@ -294,17 +325,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     SEND_STRING(" win");
                 } else if (user_config.is_linux) {
                     SEND_STRING(" linux");
+                } else if (user_config.is_ios) {
+                    SEND_STRING(" ios");
+                } else {
+                    SEND_STRING(" unknown");
                 }
+                SEND_STRING(" \\");
 
                 if (key_override_is_enabled()) {
                     if (user_config.override_modded_esc) SEND_STRING(" modesc");
                     if (user_config.override_enter) SEND_STRING(" ent");
                     if (user_config.override_backspace) SEND_STRING(" bksp");
                     if (user_config.override_tab) SEND_STRING(" tab");
-                    if (user_config.override_arrows) SEND_STRING(" arrow");
+                    if (user_config.override_arrows) SEND_STRING(" arr");
                     if (user_config.override_delete) SEND_STRING(" del");
-                    if (user_config.override_word_del) SEND_STRING(" worddel");
-                    if (user_config.override_word_move) SEND_STRING(" wordmv");
+                    if (user_config.override_word_dl_apl) SEND_STRING(" wddlapl");
+                    if (user_config.override_word_dl_lnx) SEND_STRING(" wddllnx");
+                    if (user_config.override_word_mv_apl) SEND_STRING(" wdmvapl");
+                    if (user_config.override_word_mv_lnx) SEND_STRING(" wdmvlnx");
                     if (user_config.override_home) SEND_STRING(" home");
                     if (user_config.override_end) SEND_STRING(" end");
                     if (user_config.override_cmd_v) SEND_STRING(" cmdv");
@@ -312,24 +350,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
                     SEND_STRING(" \\");
 
-                    if (user_config.override_linux_cmd) SEND_STRING(" linuxcmd");
+                    if (user_config.override_linux_cmd) SEND_STRING(" lnxcmd");
 
-                    if (user_config.override_ctrl_k) SEND_STRING(" ctrlk");
-                    if (user_config.override_ctrl_o) SEND_STRING(" ctrlo");
-                    if (user_config.override_ctrl_u) SEND_STRING(" ctrlu");
+                    if (user_config.override_ctrl_k) SEND_STRING(" ctlk");
+                    if (user_config.override_ctrl_o) SEND_STRING(" ctlo");
+                    if (user_config.override_ctrl_u) SEND_STRING(" ctlu");
 
                     if (user_config.fnc_tap) SEND_STRING(" fnctap");
                     if (user_config.override_cmd_d) SEND_STRING(" cmdd");
 
                     if (user_config.is_jis_mode) SEND_STRING(" jis");
 
-                    if (user_config.override_cmd_space) SEND_STRING(" cmdspace");
+                    if (user_config.override_cmd_space) SEND_STRING(" cmdspc");
                 } else {
                     SEND_STRING(" override disabled");
                 }
 
                 tap_code(KC_SPC);
-                tap_code16(KC_RABK);
+                tap_code16(KC_RBRC);
                 unregister_code(KC_LSFT);
             }
             return false;

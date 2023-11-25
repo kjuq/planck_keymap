@@ -112,9 +112,11 @@ key_override_t del_key_override   = ko_make_basic(MOD_BIT(KC_LCTL), KC_D, KC_DEL
 
 key_override_t w_fwd_mac_override = ko_make_basic(MOD_BIT(KC_RALT), KC_F, RALT(KC_RGHT));
 key_override_t w_bck_mac_override = ko_make_basic(MOD_BIT(KC_RALT), KC_B, RALT(KC_LEFT));
-key_override_t w_del_mac_override = ko_make_basic(MOD_BIT(KC_LCTL), KC_W, RALT(KC_BSPC));
+
 key_override_t w_fwd_win_override = ko_make_basic(MOD_BIT(KC_RALT), KC_F, RCTL(KC_RGHT));
 key_override_t w_bck_win_override = ko_make_basic(MOD_BIT(KC_RALT), KC_B, RCTL(KC_LEFT));
+
+key_override_t w_del_mac_override = ko_make_basic(MOD_BIT(KC_LCTL), KC_W, RALT(KC_BSPC));
 key_override_t w_del_win_override = ko_make_basic(MOD_BIT(KC_LCTL), KC_W, LCTL(KC_BSPC));
 
 key_override_t cmd_space_override = ko_make_basic(MOD_BIT(KC_LGUI), KC_SPC, LGUI(KC_BSLS));
@@ -299,37 +301,6 @@ void switch_all_overrides_eeprom(bool enable) {
     user_config.is_linux = tmp_linux;
 
     eeconfig_update_user(user_config.raw);
-}
-
-void disable_word_override(void) {
-    switch_override(&w_fwd_mac_override, false);
-    switch_override(&w_bck_mac_override, false);
-    switch_override(&w_fwd_win_override, false);
-    switch_override(&w_bck_win_override, false);
-}
-
-void enable_word_override(void) {
-    if (user_config.is_macos) { // If MacOS
-        switch_override(&w_fwd_mac_override, true);
-        switch_override(&w_bck_mac_override, true);
-        switch_override(&w_fwd_win_override, false);
-        switch_override(&w_bck_win_override, false);
-    } else if (user_config.is_windows) { // If Windows
-        switch_override(&w_fwd_mac_override, false);
-        switch_override(&w_bck_mac_override, false);
-        switch_override(&w_fwd_win_override, true);
-        switch_override(&w_bck_win_override, true);
-    } else if (user_config.is_linux) { // Linux is not implemented yet. Maybe depends on distributions.
-        disable_word_override();
-    }
-}
-
-void toggle_word_override(bool enable) {
-    if (enable) {
-        enable_word_override();
-    } else {
-        disable_word_override();
-    }
 }
 
 void disable_word_del_override(void) {

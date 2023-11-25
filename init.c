@@ -1,78 +1,79 @@
 void reset_overrides_to_default(void) {
-
-    disable_all_overrides();
     user_config.raw = 0;
-
-    switch_override(&ctrl_tab_override, true);
-    switch_override(&alt_tab_override, true);
-    switch_override(&cmd_tab_override, true);
-    switch_override(&shift_tab_override, true);
     user_config.override_modded_esc = true;
-
-    switch_override(&enter_key_override, true);
     user_config.override_enter = true;
-
-    switch_override(&bs_key_override, true);
     user_config.override_backspace = true;
-
-    switch_override(&tab_key_override, true);
     user_config.override_tab = true;
-
-    switch_override(&up_key_override, true);
-    switch_override(&down_key_override, true);
-    switch_override(&right_key_override, true);
-    switch_override(&left_key_override, true);
     user_config.override_arrows = true;
-
-    switch_override(&del_key_override, true);
     user_config.override_delete = true;
-
-    toggle_word_del_override(true);
-    user_config.override_word_del = true;
-
-    toggle_word_override(true);
-    user_config.override_word_move = true;
-
-    switch_override(&home_key_override, true);
     user_config.override_home = true;
-
-    switch_override(&end_key_override, true);
     user_config.override_end = true;
-
-    switch_override(&cmd_v_override, true);
     user_config.override_cmd_v = true;
+    user_config.spc_tap = true;
+    eeconfig_update_user(user_config.raw);
+}
 
-    default_layer_or((layer_state_t)1 << _SPC_TAP);
-    default_layer_xor((layer_state_t)1 << _SPC_TAP);
-    user_config.spc_tap = false;
+void common_win_linux(void) {
+    user_config.override_word_mv_lnx = true;
+    user_config.override_word_mv_apl = false;
+    user_config.override_word_dl_lnx = true;
+    user_config.override_word_dl_apl = false;
+    user_config.override_cmd_v = false;
+    user_config.override_linux_cmd = true;
+    eeconfig_update_user(user_config.raw);
+}
 
+void common_apple(void) {
+    user_config.override_word_mv_apl = true;
+    user_config.override_word_mv_lnx = false;
+    user_config.override_word_dl_apl = true;
+    user_config.override_word_dl_lnx = false;
+    user_config.override_linux_cmd = false;
     eeconfig_update_user(user_config.raw);
 }
 
 void init_macos(void) {
-    switch_all_overrides_eeprom(false);
+    user_config.raw = eeconfig_read_user();
     user_config.is_macos = true;
     user_config.is_windows = false;
     user_config.is_linux = false;
+    user_config.is_ios = false;
+    common_apple();
+}
 
-    eeconfig_update_user(user_config.raw);
+void init_ios(void) {
+    user_config.raw = eeconfig_read_user();
+    user_config.is_macos = false;
+    user_config.is_windows = false;
+    user_config.is_linux = false;
+    user_config.is_ios = true;
+    common_apple();
 }
 
 void init_windows(void) {
-    switch_all_overrides_eeprom(true);
+    user_config.raw = eeconfig_read_user();
     user_config.is_macos = false;
     user_config.is_windows = true;
     user_config.is_linux = false;
-
-    eeconfig_update_user(user_config.raw);
+    user_config.is_ios = false;
+    common_win_linux();
 }
 
 void init_linux(void) {
-    switch_all_overrides_eeprom(true);
+    user_config.raw = eeconfig_read_user();
     user_config.is_macos = false;
     user_config.is_windows = false;
     user_config.is_linux = true;
+    user_config.is_ios = false;
+    common_win_linux();
+}
 
+void init_unsure(void) {
+    user_config.raw = eeconfig_read_user();
+    user_config.is_macos = false;
+    user_config.is_windows = false;
+    user_config.is_linux = false;
+    user_config.is_ios = false;
     eeconfig_update_user(user_config.raw);
 }
 
@@ -123,14 +124,18 @@ void reload_user_eeprom(void) {
     if (!user_config.override_cmd_d) {
         switch_override(&cmd_d_override, false);
     }
-    if (!user_config.override_word_move) {
+    if (!user_config.override_word_mv_apl) {
         switch_override(&w_fwd_mac_override, false);
         switch_override(&w_bck_mac_override, false);
+    }
+    if (!user_config.override_word_mv_lnx) {
         switch_override(&w_fwd_win_override, false);
         switch_override(&w_bck_win_override, false);
     }
-    if (!user_config.override_word_del) {
+    if (!user_config.override_word_dl_apl) {
         switch_override(&w_del_mac_override, false);
+    }
+    if (!user_config.override_word_dl_lnx) {
         switch_override(&w_del_win_override, false);
     }
 
@@ -139,6 +144,10 @@ void reload_user_eeprom(void) {
         switch_override(&alt_tab_override, false);
         switch_override(&cmd_tab_override, false);
         switch_override(&shift_tab_override, false);
+    }
+
+    if (!user_config.override_linux_cmd) {
+        switch_linux_cmd(false);
     }
 
     if (!user_config.is_jis_mode) {
