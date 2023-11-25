@@ -163,84 +163,87 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case KO_TB:
             if (record->event.pressed) {
-                switch_override_with_react(&tab_key_override, user_config.override_tab);
+                user_config.override_tab = user_config.override_tab ? false : true;
+                override_toggle_post(user_config.override_tab);
             }
             return false;
         case KO_EN:
             if (record->event.pressed) {
-                switch_override_with_react(&enter_key_override, user_config.override_enter);
+                user_config.override_enter = user_config.override_enter ? false : true;
+                override_toggle_post(user_config.override_enter);
             }
             return false;
         case KO_BS:
             if (record->event.pressed) {
-                switch_override_with_react(&bs_key_override, user_config.override_backspace);
+                user_config.override_backspace = user_config.override_backspace ? false : true;
+                override_toggle_post(user_config.override_backspace);
             }
             return false;
         case KO_DL:
             if (record->event.pressed) {
-                switch_override_with_react(&del_key_override, user_config.override_delete);
+                user_config.override_delete = user_config.override_delete ? false : true;
+                override_toggle_post(user_config.override_delete);
             }
             return false;
         case KO_AR:
             if (record->event.pressed) {
-                // Modify the rest of the variables
-                // Because the macro only takes one argument to change enabled state.
-                switch_override(&down_key_override, user_config.override_arrows ? false : true);
-                switch_override(&right_key_override, user_config.override_arrows ? false :  true);
-                switch_override(&left_key_override, user_config.override_arrows ? false :  true);
-
-                switch_override_with_react(&up_key_override, user_config.override_arrows);
-
+                user_config.override_arrows = user_config.override_arrows ? false : true;
+                override_toggle_post(user_config.override_arrows);
             }
             return false;
         case KO_HM:
             if (record->event.pressed) {
-                switch_override_with_react(&home_key_override, user_config.override_home);
+                user_config.override_home = user_config.override_home ? false : true;
+                override_toggle_post(user_config.override_home);
             }
             return false;
         case KO_ED:
             if (record->event.pressed) {
-                switch_override_with_react(&end_key_override, user_config.override_end);
+                user_config.override_end = user_config.override_end ? false : true;
+                override_toggle_post(user_config.override_end);
             }
             return false;
         case KO_CTLK:
             if (record->event.pressed) {
-                switch_override_with_react(&ctrl_k_key_override, user_config.override_ctrl_k);
+                user_config.override_ctrl_k = user_config.override_ctrl_k ? false : true;
+                override_toggle_post(user_config.override_ctrl_k);
             }
             return false;
         case KO_CTLO:
             if (record->event.pressed) {
-                switch_override_with_react(&ctrl_o_key_override, user_config.override_ctrl_o);
+                user_config.override_ctrl_o = user_config.override_ctrl_o ? false : true;
+                override_toggle_post(user_config.override_ctrl_o);
             }
             return false;
         case KO_CTLU:
             if (record->event.pressed) {
-                switch_override_with_react(&ctrl_u_key_override, user_config.override_ctrl_u);
+                user_config.override_ctrl_u = user_config.override_ctrl_u ? false : true;
+                override_toggle_post(user_config.override_ctrl_u);
             }
             return false;
 
         case KO_CMSP:
             if (record->event.pressed) {
-                switch_override_with_react(&cmd_space_override, user_config.override_cmd_space);
+                user_config.override_cmd_space = user_config.override_cmd_space ? false : true;
+                override_toggle_post(user_config.override_cmd_space);
             }
             return false;
         case KO_CMDV:
             if (record->event.pressed) {
-                switch_override_with_react(&cmd_v_override, user_config.override_cmd_v);
+                user_config.override_cmd_v = user_config.override_cmd_v ? false : true;
+                override_toggle_post(user_config.override_cmd_v);
             }
             return false;
         case KO_CMDD:
             if (record->event.pressed) {
-                switch_override_with_react(&cmd_d_override, user_config.override_cmd_d);
+                user_config.override_cmd_d = user_config.override_cmd_d ? false : true;
+                override_toggle_post(user_config.override_cmd_d);
             }
             return false;
         case KO_MTAB:
             if (record->event.pressed) {
-                switch_override(&ctrl_tab_override, user_config.override_modded_esc ? false : true);
-                switch_override(&alt_tab_override, user_config.override_modded_esc ? false :  true);
-                switch_override(&cmd_tab_override, user_config.override_modded_esc ? false :  true);
-
-                switch_override_with_react(&shift_tab_override, user_config.override_modded_esc);
+                user_config.override_modded_esc = user_config.override_modded_esc ? false : true;
+                override_toggle_post(user_config.override_modded_esc);
             }
             return false;
         case KO_WD:
@@ -253,9 +256,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     cur_status = user_config.override_word_mv_lnx;
                     user_config.override_word_mv_lnx = cur_status ? false : true;
                 }
-                eeconfig_update_user(user_config.raw);
-                reload_user_eeprom();
-                react_on_toggle(cur_status);
+                override_toggle_post(cur_status);
             }
             return false;
         case KO_WDDL:
@@ -268,40 +269,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     cur_status = user_config.override_word_dl_lnx;
                     user_config.override_word_dl_lnx = cur_status ? false : true;
                 }
-                eeconfig_update_user(user_config.raw);
-                reload_user_eeprom();
-                react_on_toggle(cur_status);
+                override_toggle_post(cur_status);
             }
             return false;
         case KO_LXCM:
             if (record->event.pressed) {
                 user_config.override_linux_cmd = user_config.override_linux_cmd ? false : true;
-                switch_linux_cmd(user_config.override_linux_cmd);
-                eeconfig_update_user(user_config.raw);
-                react_key_press_by_RGB(HSV_ORANGE);
+                override_toggle_post(user_config.override_linux_cmd);
             }
             return false;
 
         case KO_JIS:
             if (record->event.pressed) {
                 user_config.is_jis_mode = user_config.is_jis_mode ? false : true;
-                switch_jis(user_config.is_jis_mode);
-                eeconfig_update_user(user_config.raw);
-                react_key_press_by_RGB(HSV_ORANGE);
-            }
-            return false;
-
-        case SW_OS:
-            if (record->event.pressed) {
-                if (user_config.is_macos) {
-                    init_windows();
-                } else if (user_config.is_windows) { // Enable Linux
-                    init_linux();
-                } else { // Enable MacOS
-                    init_macos();
-                }
-                eeconfig_update_user(user_config.raw);
-                react_key_press_by_RGB(HSV_ORANGE);
+                override_toggle_post(user_config.is_jis_mode);
             }
             return false;
 
@@ -375,33 +356,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // Hold tap
         case LT_FNC:
             if (record->event.pressed) {
-                bool cur_enabled = user_config.fnc_tap;
-                react_on_toggle(!cur_enabled);
-                if (cur_enabled) {
-                    default_layer_or((layer_state_t)1 << _FNC_TAP);
-                    default_layer_xor((layer_state_t)1 << _FNC_TAP);
-                    user_config.fnc_tap = false;
-                } else {
-                    default_layer_or((layer_state_t)1 << _FNC_TAP);
-                    user_config.fnc_tap = true;
-                }
-                eeconfig_update_user(user_config.raw);
+                user_config.fnc_tap = user_config.fnc_tap ? false : true;
+                override_toggle_post(user_config.fnc_tap);
             }
             return false;
 
         case MT_SPC:
             if (record->event.pressed) {
-                bool cur_enabled = user_config.spc_tap;
-                react_on_toggle(!cur_enabled);
-                if (cur_enabled) {
-                    default_layer_or((layer_state_t)1 << _SPC_TAP);
-                    default_layer_xor((layer_state_t)1 << _SPC_TAP);
-                    user_config.spc_tap = false;
-                } else {
-                    default_layer_or((layer_state_t)1 << _SPC_TAP);
-                    user_config.spc_tap = true;
-                }
-                eeconfig_update_user(user_config.raw);
+                user_config.spc_tap = user_config.spc_tap ? false : true;
+                override_toggle_post(user_config.spc_tap);
             }
             return false;
         }

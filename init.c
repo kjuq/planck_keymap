@@ -156,8 +156,14 @@ void reload_user_eeprom(void) {
 
     if (user_config.fnc_tap) {
         default_layer_or((layer_state_t)1 << _FNC_TAP);
+    } else {
+        default_layer_or((layer_state_t)1 << _FNC_TAP);
+        default_layer_xor((layer_state_t)1 << _FNC_TAP);
     }
     if (user_config.spc_tap) {
         default_layer_or((layer_state_t)1 << _SPC_TAP);
+    } else {
+        default_layer_or((layer_state_t)1 << _SPC_TAP);
+        default_layer_xor((layer_state_t)1 << _SPC_TAP);
     }
 };

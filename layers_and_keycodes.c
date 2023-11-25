@@ -23,7 +23,6 @@ enum planck_keycodes {
     EXT_LYR,
     MS_SHFT,
     FPS,
-    SW_OS,
     KO_TB,
     KO_EN,
     KO_BS,
