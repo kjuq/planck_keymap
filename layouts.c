@@ -43,9 +43,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ), // }}}
 
     [_FNCTN] = LAYOUT_planck_grid( // {{{
-        MODS,    KC_VOLU, DM_RSTP, KC_F18,  ADJUST,  KC_CUT,  XXXXXXX, KC_F12,  KC_F7,   KC_F8,   KC_F9,   KC_F15,
-        ORS,     KC_MPLY, DM_REC1, KC_F17,  KC_F20,  KC_COPY, XXXXXXX, KC_F11,  KC_F4,   KC_F5,   KC_F6,   KC_F14,
-        XXXXXXX, KC_VOLD, DM_PLY1, KC_F16,  KC_F19,  KC_PSTE, XXXXXXX, KC_F10,  KC_F1,   KC_F2,   KC_F3,   KC_F13,
+        MODS,    KC_VOLU, DM_RSTP, KC_F18,  ADJUST,  XXXXXXX, XXXXXXX, KC_F12,  KC_F7,   KC_F8,   KC_F9,   KC_F15,
+        ORS,     KC_MPLY, DM_REC1, KC_F17,  KC_F20,  XXXXXXX, XXXXXXX, KC_F11,  KC_F4,   KC_F5,   KC_F6,   KC_F14,
+        XXXXXXX, KC_VOLD, DM_PLY1, KC_F16,  KC_F19,  XXXXXXX, XXXXXXX, KC_F10,  KC_F1,   KC_F2,   KC_F3,   KC_F13,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ), // }}}
 

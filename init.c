@@ -1,9 +1,9 @@
 void common_win_linux(void) {
-    if (user_config.override_word_mv_lnx || user_config.override_word_mv_lnx) {
+    if (user_config.override_word_mv_apl || user_config.override_word_mv_lnx) {
         user_config.override_word_mv_lnx = true;
         user_config.override_word_mv_apl = false;
     }
-    if (user_config.override_word_dl_lnx || user_config.override_word_dl_lnx) {
+    if (user_config.override_word_dl_apl || user_config.override_word_dl_lnx) {
         user_config.override_word_dl_lnx = true;
         user_config.override_word_dl_apl = false;
     }
@@ -13,11 +13,11 @@ void common_win_linux(void) {
 }
 
 void common_apple(void) {
-    if (user_config.override_word_mv_lnx || user_config.override_word_mv_lnx) {
+    if (user_config.override_word_mv_apl || user_config.override_word_mv_lnx) {
         user_config.override_word_mv_apl = true;
         user_config.override_word_mv_lnx = false;
     }
-    if (user_config.override_word_dl_lnx || user_config.override_word_dl_lnx) {
+    if (user_config.override_word_dl_apl || user_config.override_word_dl_lnx) {
         user_config.override_word_dl_apl = true;
         user_config.override_word_dl_lnx = false;
     }
@@ -133,7 +133,6 @@ void reload_user_eeprom(void) {
     if (user_config.is_macos || user_config.is_ios || !user_config.override_end) {
         switch_override(&end_key_override, false);
     }
-
 
     if (!user_config.override_linux_cmd) {
         switch_linux_cmd(false);
