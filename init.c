@@ -105,6 +105,9 @@ void reload_user_eeprom(void) {
     if (!user_config.override_cmd_d) {
         switch_override(&cmd_d_override, false);
     }
+    if (!user_config.override_cmd_q) {
+        switch_override(&cmd_q_override, false);
+    }
     if (!user_config.override_word_mv_apl) {
         switch_override(&w_fwd_mac_override, false);
         switch_override(&w_bck_mac_override, false);

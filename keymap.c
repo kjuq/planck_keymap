@@ -228,6 +228,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 override_toggle_post(user_config.override_cmd_d);
             }
             return false;
+        case KO_CMDQ:
+            if (record->event.pressed) {
+                user_config.override_cmd_q = user_config.override_cmd_q ? false : true;
+                override_toggle_post(user_config.override_cmd_q);
+            }
+            return false;
         case KO_MTAB:
             if (record->event.pressed) {
                 user_config.override_modded_esc = user_config.override_modded_esc ? false : true;
@@ -306,6 +312,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     if (user_config.override_word_mv_lnx) SEND_STRING(" wdmvlnx");
                     if (user_config.override_ctrl_u) SEND_STRING(" ctlu");
                     if (user_config.override_cmd_v) SEND_STRING(" cmdv");
+                    if (user_config.override_cmd_q) SEND_STRING(" cmdq");
                     if (user_config.spc_tap) SEND_STRING(" spctap");
 
                     SEND_STRING(" \\");

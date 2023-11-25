@@ -38,6 +38,7 @@ enum planck_keycodes {
     KO_CTLU,
     KO_CMDV,
     KO_CMDD,
+    KO_CMDQ,
     KO_MTAB,
     KO_LXCM,
     KO_JIS,
