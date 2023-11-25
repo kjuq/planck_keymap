@@ -1,18 +1,3 @@
-void reset_overrides_to_default(void) {
-    user_config.raw = 0;
-    user_config.override_modded_esc = true;
-    user_config.override_enter = true;
-    user_config.override_backspace = true;
-    user_config.override_tab = true;
-    user_config.override_arrows = true;
-    user_config.override_delete = true;
-    user_config.override_home = true;
-    user_config.override_end = true;
-    user_config.override_cmd_v = true;
-    user_config.spc_tap = true;
-    eeconfig_update_user(user_config.raw);
-}
-
 void common_win_linux(void) {
     if (user_config.override_word_mv_lnx || user_config.override_word_mv_lnx) {
         user_config.override_word_mv_lnx = true;

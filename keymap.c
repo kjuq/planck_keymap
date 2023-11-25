@@ -286,14 +286,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
 
-        case KO_RSET:
-            if (record->event.pressed) {
-                reset_overrides_to_default();
-                reload_user_eeprom();
-                react_key_press_by_RGB(HSV_ORANGE);
-            }
-            return false;
-
         case KO_PRNT:
             if (record->event.pressed) {
                 tap_code(KC_LNG2);

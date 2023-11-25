@@ -42,7 +42,6 @@ enum planck_keycodes {
     KO_LXCM,
     KO_JIS,
     KO_PRNT,
-    KO_RSET,
     LT_FNC,
     MT_SPC,
 };
