@@ -14,20 +14,28 @@ void reset_overrides_to_default(void) {
 }
 
 void common_win_linux(void) {
-    user_config.override_word_mv_lnx = true;
-    user_config.override_word_mv_apl = false;
-    user_config.override_word_dl_lnx = true;
-    user_config.override_word_dl_apl = false;
+    if (user_config.override_word_mv_lnx || user_config.override_word_mv_lnx) {
+        user_config.override_word_mv_lnx = true;
+        user_config.override_word_mv_apl = false;
+    }
+    if (user_config.override_word_dl_lnx || user_config.override_word_dl_lnx) {
+        user_config.override_word_dl_lnx = true;
+        user_config.override_word_dl_apl = false;
+    }
     user_config.override_cmd_v = false;
     user_config.override_linux_cmd = true;
     eeconfig_update_user(user_config.raw);
 }
 
 void common_apple(void) {
-    user_config.override_word_mv_apl = true;
-    user_config.override_word_mv_lnx = false;
-    user_config.override_word_dl_apl = true;
-    user_config.override_word_dl_lnx = false;
+    if (user_config.override_word_mv_lnx || user_config.override_word_mv_lnx) {
+        user_config.override_word_mv_apl = true;
+        user_config.override_word_mv_lnx = false;
+    }
+    if (user_config.override_word_dl_lnx || user_config.override_word_dl_lnx) {
+        user_config.override_word_dl_apl = true;
+        user_config.override_word_dl_lnx = false;
+    }
     user_config.override_linux_cmd = false;
     eeconfig_update_user(user_config.raw);
 }
