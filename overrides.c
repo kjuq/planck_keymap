@@ -264,34 +264,6 @@ void toggle_word_del_override(bool enable) {
 }
 
 const key_override_t **key_overrides = (const key_override_t *[]){
-    &enter_key_override,
-    &tab_key_override,
-    &right_key_override,
-    &left_key_override,
-    &up_key_override,
-    &down_key_override,
-    &bs_key_override,
-    &del_key_override,
-    &home_key_override,
-    &end_key_override,
-    &ctrl_u_key_override,
-    &cmd_space_override,
-
-    &cmd_d_override,
-    &cmd_v_override,
-
-    &w_fwd_mac_override,
-    &w_bck_mac_override,
-    &w_del_mac_override,
-    &w_fwd_win_override,
-    &w_bck_win_override,
-    &w_del_win_override,
-
-    &ctrl_tab_override,
-    &alt_tab_override,
-    &cmd_tab_override,
-    &shift_tab_override,
-
     &linux_a_override,
     &linux_b_override,
     &linux_c_override,
@@ -320,6 +292,34 @@ const key_override_t **key_overrides = (const key_override_t *[]){
     &linux_z_override,
     &linux_com_override,
     &linux_dot_override,
+
+    &enter_key_override,
+    &tab_key_override,
+    &right_key_override,
+    &left_key_override,
+    &up_key_override,
+    &down_key_override,
+    &bs_key_override,
+    &del_key_override,
+    &home_key_override,
+    &end_key_override,
+    &ctrl_u_key_override,
+    &cmd_space_override,
+
+    &cmd_d_override,
+    &cmd_v_override,
+
+    &w_fwd_mac_override,
+    &w_bck_mac_override,
+    &w_del_mac_override,
+    &w_fwd_win_override,
+    &w_bck_win_override,
+    &w_del_win_override,
+
+    &ctrl_tab_override,
+    &alt_tab_override,
+    &cmd_tab_override,
+    &shift_tab_override,
 
     &jis_at_override,
     &jis_circ_override,

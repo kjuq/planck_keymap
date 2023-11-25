@@ -7,7 +7,7 @@ void common_win_linux(void) {
         user_config.override_word_dl_lnx = true;
         user_config.override_word_dl_apl = false;
     }
-    user_config.override_cmd_v = false;
+    // user_config.override_cmd_v = false;
     user_config.override_linux_cmd = true;
     eeconfig_update_user(user_config.raw);
 }
