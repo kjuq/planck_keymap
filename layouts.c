@@ -31,14 +31,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LOWER] = LAYOUT_planck_grid( // {{{
         SC_TAB,  KC_MINS, KC_EQL,  KC_QUOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_7,    KC_8,    KC_9,    KC_BSPC,
         MOD_CAG, KC_SLSH, KC_LBRC, KC_RBRC, KC_GRV,  XXXXXXX, XXXXXXX, KC_0,    KC_4,    KC_5,    KC_6,    XXXXXXX,
-        KC_LCTL, KC_SCLN, KC_COMM, KC_DOT,  KC_BSLS, XXXXXXX, XXXXXXX, XXXXXXX, KC_1,    KC_2,    KC_3,    XXXXXXX,
+        KC_RCTL, KC_SCLN, KC_COMM, KC_DOT,  KC_BSLS, XXXXXXX, XXXXXXX, XXXXXXX, KC_1,    KC_2,    KC_3,    KC_LSFT,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ), // }}}
 
     [_RAISE] = LAYOUT_planck_grid( // {{{
         SA_TAB,  KC_UNDS, KC_PLUS, KC_DQUO, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_AMPR, KC_ASTR, KC_LPRN, KC_BSPC,
         XXXXXXX, KC_QUES, KC_LCBR, KC_RCBR, KC_TILD, XXXXXXX, XXXXXXX, KC_RPRN, KC_DLR,  KC_PERC, KC_CIRC, XXXXXXX,
-        XXXXXXX, KC_COLN, KC_LABK, KC_RABK, KC_PIPE, XXXXXXX, XXXXXXX, XXXXXXX, KC_EXLM, KC_AT,   KC_HASH, XXXXXXX,
+        KC_RCMD, KC_COLN, KC_LABK, KC_RABK, KC_PIPE, XXXXXXX, XXXXXXX, XXXXXXX, KC_EXLM, KC_AT,   KC_HASH, KC_LALT,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ), // }}}
 
@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_ADJUST2] = LAYOUT_planck_grid( // {{{
         EXT_LYR, QK_BOOT, DB_TOGG, AU_TOGG, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI,
         XXXXXXX, FPS,     QWERTY,  COLEMAK, XXXXXXX, XXXXXXX, XXXXXXX, RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_SW,RGB_M_SN,
-        XXXXXXX, EE_CLR,  KO_RSET, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_M_K, RGB_M_X, RGB_M_G, RGB_M_T, RGB_M_TW,
+        XXXXXXX, EE_CLR,  KO_TOGG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_M_K, RGB_M_X, RGB_M_G, RGB_M_T, RGB_M_TW,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
     ), // }}}
 
