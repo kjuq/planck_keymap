@@ -7,7 +7,7 @@
 #define RAISE MO(_RAISE)
 #define RISFNC LT(_RAISE, KC_F19)
 //#define RAISE LM(_RAISE, MOD_MASK_SHIFT)
-#define FNCTN MO(_FNCTN)
+#define FNCTN OSL(_FNCTN)
 #define MODS  OSL(_MODS)
 #define ORS   OSL(_ORS)
 #define MOUSE MO(_MOUSE)
