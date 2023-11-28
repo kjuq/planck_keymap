@@ -14,12 +14,6 @@
 
 #define MOD_CAG LM(0, MOD_MASK_CAG)
 
-#define NEWWIN G(KC_N)
-#define NEWFLDR LSG(KC_N)
-#define DELFILE G(KC_BSPC)
-#define SHWINFO G(KC_I)
-#define TOGHDDN LSG(KC_DOT)
-
 #define SC_TAB (QK_LCTL | QK_RSFT | KC_TAB)
 #define SA_TAB (QK_RALT | QK_RSFT | KC_TAB)
 #define EISU KC_LNG2
