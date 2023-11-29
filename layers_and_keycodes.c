@@ -45,4 +45,5 @@ enum planck_keycodes {
     KO_PRNT,
     LT_FNC,
     MT_SPC,
+    HOLDLST,
 };

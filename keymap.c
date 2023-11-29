@@ -13,6 +13,8 @@
 bool is_apple;
 bool is_lnxwin;
 
+uint16_t last_keycode;
+
 void oneshot_layer_changed_user(uint8_t layer) {
     if (layer == _MODS || layer == _ORS) {
         disable_all_overrides();
@@ -129,6 +131,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case EXT_LYR:
             if (record->event.pressed) { exit_layer(); }
+            return false;
+        case HOLDLST:
+            if (record->event.pressed) {
+                register_code16(last_keycode);
+            }
             return false;
 
         // Hooks
@@ -354,6 +361,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 override_toggle_post(user_config.spc_tap);
             }
             return false;
+        default:
+            last_keycode = get_last_keycode();
         }
+
     return true;
 }
