@@ -44,12 +44,6 @@
 #undef  MOUSEKEY_TIME_TO_MAX
 #define MOUSEKEY_TIME_TO_MAX 0
 
-// Precise diagonal movement
-#define MOUSEKEY_PRECISE_DIAGONAL_MOVE
-
-// Offset to change delta when pressing a key
-#define MOUSEKEY_DELTA_OFFSET 8
-
 // Mouse Wheel Settings
 
 // Delay between pressing a wheel key and wheel movement (10)
@@ -68,10 +62,6 @@
 // set 0 to disable accleration
 #undef  MOUSEKEY_WHEEL_TIME_TO_MAX
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 40
-
-// Change wheel speed by pressing key
-#define MOUSEKEY_CHANGE_WHEEL
-#define MOUSEKEY_WHEEL_INTERVAL_OFFSET 40
 
 // RGB Settings
 
