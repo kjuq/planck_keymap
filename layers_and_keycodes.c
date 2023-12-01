@@ -20,7 +20,6 @@ enum planck_keycodes {
     ADJUST,
     ADJUST2,
     EXT_LYR,
-    MS_SHFT,
     KO_TB,
     KO_EN,
     KO_BS,

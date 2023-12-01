@@ -111,15 +111,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return true;
 
         // Extra keys
-        case MS_SHFT:
-            if (record->event.pressed) {
-                delta_offset = MOUSEKEY_DELTA_OFFSET;
-                mk_wheel_interval -= MOUSEKEY_WHEEL_INTERVAL_OFFSET;
-            } else {
-                delta_offset = 0;
-                mk_wheel_interval += MOUSEKEY_WHEEL_INTERVAL_OFFSET;
-            }
-            return false;
         case EXT_LYR:
             if (record->event.pressed) { exit_layer(); }
             return false;
