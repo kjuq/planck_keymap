@@ -109,15 +109,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
             return true;
-        case FPS:
-            if (record->event.pressed) {
-                if (IS_LAYER_OFF(_FPS)) {
-                    enter_layer(_FPS, HSV_CORAL);
-                } else {
-                    exit_layer();
-                }
-            }
-            return false;
 
         // Extra keys
         case MS_SHFT:

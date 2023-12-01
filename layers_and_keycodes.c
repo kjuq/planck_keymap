@@ -11,7 +11,6 @@ enum planck_layers {
     _ADJUST,
     _ADJUST2,
     _MOUSE,
-    _FPS,
 };
 
 enum planck_keycodes {
@@ -22,7 +21,6 @@ enum planck_keycodes {
     ADJUST2,
     EXT_LYR,
     MS_SHFT,
-    FPS,
     KO_TB,
     KO_EN,
     KO_BS,
