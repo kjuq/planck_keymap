@@ -1,6 +1,8 @@
 # My Planck Layout
 
-Clone qmk_firmware first
+## Usage
+
+Clone `qmk_firmware` first
 
 ```bash
 git clone --recursive https://github.com/qmk/qmk_firmware
@@ -54,4 +56,38 @@ Build
 ./build.sh
 # or if you prefer docker
 ./build_docker.sh
+```
+
+## Development
+
+To use clangd and suppress inconpatible flags' errors
+
+```bash
+nvim qmk_firmware/.clangd
+```
+
+Add them to `CompileFlags/Remove`
+
+```yaml
+CompileFlags:
+  Remove:
+    - -mcpu=*
+    - -mfpu=*
+    - -mfloat-abi=*
+    - -mno-unaligned-access
+```
+
+It should be like below
+
+```yaml
+CompileFlags:
+  Add: [-Wno-unknown-attributes, -Wno-maybe-uninitialized, -Wno-unknown-warning-option]
+  Remove:
+    - -W*
+    - -mcall-prologues
+    - -mcpu=*
+    - -mfpu=*
+    - -mfloat-abi=*
+    - -mno-unaligned-access
+  Compiler: clang
 ```
