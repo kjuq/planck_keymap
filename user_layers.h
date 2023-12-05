@@ -2,7 +2,7 @@
 
 #include QMK_KEYBOARD_H
 
-#define HSV_ADJUST  HSV_PURPLE
+#define HSV_ADJUST HSV_PURPLE
 #define HSV_ADJUST2 HSV_BLUE
 
 enum planck_layers {

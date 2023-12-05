@@ -1,4 +1,15 @@
+#pragma once
+
+#include QMK_KEYBOARD_H
+
+#include "keycodes.h"
+
+#include "user_layers.h"
+#include "user_keycodes.h"
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+
+    // clang-format off
 
     [_COLEMAK] = LAYOUT_planck_grid( // {{{
         KC_ESC,  KC_W,    KC_F,    KC_P,    KC_V,    XXXXXXX, XXXXXXX, KC_J,    KC_L,    KC_U,    KC_Y,    KC_Q,
@@ -83,5 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX, KC_WH_L, XXXXXXX, KC_WH_R, KC_BTN4, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         _______, _______, _______, _______, _______, _______, _______, KC_BTN1, _______, _______, _______, _______
     ), // }}}
+
+    // clang-format on
 
 };

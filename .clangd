@@ -1,0 +1,5 @@
+Diagnostics:
+  Includes:
+    IgnoreHeader:
+      - default_keyboard\.h # QMK_KEYBOARD_H
+      - user_layouts\.c

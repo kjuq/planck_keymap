@@ -3,8 +3,10 @@
 #include QMK_KEYBOARD_H
 
 #include "user_eeprom.h"
+#include "user_overrides_utils.c"
+#include "user_layers.h"
 
-void common_win_linux(void) {
+void _common_win_linux(void) {
     if (user_config.override_word_mv_apl || user_config.override_word_mv_lnx) {
         user_config.override_word_mv_lnx = true;
         user_config.override_word_mv_apl = false;
@@ -18,7 +20,7 @@ void common_win_linux(void) {
     eeconfig_update_user(user_config.raw);
 }
 
-void common_apple(void) {
+void _common_apple(void) {
     if (user_config.override_word_mv_apl || user_config.override_word_mv_lnx) {
         user_config.override_word_mv_apl = true;
         user_config.override_word_mv_lnx = false;
@@ -31,124 +33,124 @@ void common_apple(void) {
     eeconfig_update_user(user_config.raw);
 }
 
-void init_macos(void) {
-    user_config.raw = eeconfig_read_user();
-    user_config.is_macos = true;
+void user_init_macos(void) {
+    user_config.raw        = eeconfig_read_user();
+    user_config.is_macos   = true;
     user_config.is_windows = false;
-    user_config.is_linux = false;
-    user_config.is_ios = false;
-    common_apple();
+    user_config.is_linux   = false;
+    user_config.is_ios     = false;
+    _common_apple();
 }
 
-void init_ios(void) {
-    user_config.raw = eeconfig_read_user();
-    user_config.is_macos = false;
+void user_init_ios(void) {
+    user_config.raw        = eeconfig_read_user();
+    user_config.is_macos   = false;
     user_config.is_windows = false;
-    user_config.is_linux = false;
-    user_config.is_ios = true;
-    common_apple();
+    user_config.is_linux   = false;
+    user_config.is_ios     = true;
+    _common_apple();
 }
 
-void init_windows(void) {
-    user_config.raw = eeconfig_read_user();
-    user_config.is_macos = false;
+void user_init_windows(void) {
+    user_config.raw        = eeconfig_read_user();
+    user_config.is_macos   = false;
     user_config.is_windows = true;
-    user_config.is_linux = false;
-    user_config.is_ios = false;
-    common_win_linux();
+    user_config.is_linux   = false;
+    user_config.is_ios     = false;
+    _common_win_linux();
 }
 
-void init_linux(void) {
-    user_config.raw = eeconfig_read_user();
-    user_config.is_macos = false;
+void user_init_linux(void) {
+    user_config.raw        = eeconfig_read_user();
+    user_config.is_macos   = false;
     user_config.is_windows = false;
-    user_config.is_linux = true;
-    user_config.is_ios = false;
-    common_win_linux();
+    user_config.is_linux   = true;
+    user_config.is_ios     = false;
+    _common_win_linux();
 }
 
-void init_unsure(void) {
-    user_config.raw = eeconfig_read_user();
-    user_config.is_macos = false;
+void user_init_unsure(void) {
+    user_config.raw        = eeconfig_read_user();
+    user_config.is_macos   = false;
     user_config.is_windows = false;
-    user_config.is_linux = false;
-    user_config.is_ios = false;
+    user_config.is_linux   = false;
+    user_config.is_ios     = false;
     eeconfig_update_user(user_config.raw);
 }
 
-void reload_user_eeprom(void) {
-    enable_all_overrides();
+void user_reload_user_eeprom(void) {
+    user_enable_all_overrides();
 
     user_config.raw = eeconfig_read_user();
 
     if (!user_config.override_tab) {
-        switch_override(&tab_key_override, false);
+        user_switch_override(&tab_key_override, false);
     }
     if (!user_config.override_enter) {
-        switch_override(&enter_key_override, false);
+        user_switch_override(&enter_key_override, false);
     }
     if (!user_config.override_backspace) {
-        switch_override(&bs_key_override, false);
+        user_switch_override(&bs_key_override, false);
     }
     if (!user_config.override_delete) {
-        switch_override(&del_key_override, false);
+        user_switch_override(&del_key_override, false);
     }
     if (!user_config.override_arrows) {
-        switch_override(&up_key_override, false);
-        switch_override(&down_key_override, false);
-        switch_override(&right_key_override, false);
-        switch_override(&left_key_override, false);
+        user_switch_override(&up_key_override, false);
+        user_switch_override(&down_key_override, false);
+        user_switch_override(&right_key_override, false);
+        user_switch_override(&left_key_override, false);
     }
     if (!user_config.override_ctrl_u) {
-        switch_override(&ctrl_u_key_override, false);
+        user_switch_override(&ctrl_u_key_override, false);
     }
     if (!user_config.override_cmd_space) {
-        switch_override(&cmd_space_override, false);
+        user_switch_override(&cmd_space_override, false);
     }
     if (!user_config.override_cmd_v) {
-        switch_override(&cmd_v_override, false);
+        user_switch_override(&cmd_v_override, false);
     }
     if (!user_config.override_cmd_d) {
-        switch_override(&cmd_d_override, false);
+        user_switch_override(&cmd_d_override, false);
     }
     if (!user_config.override_cmd_q) {
-        switch_override(&cmd_q_override, false);
+        user_switch_override(&cmd_q_override, false);
     }
     if (!user_config.override_word_mv_apl) {
-        switch_override(&w_fwd_mac_override, false);
-        switch_override(&w_bck_mac_override, false);
+        user_switch_override(&w_fwd_mac_override, false);
+        user_switch_override(&w_bck_mac_override, false);
     }
     if (!user_config.override_word_mv_lnx) {
-        switch_override(&w_fwd_win_override, false);
-        switch_override(&w_bck_win_override, false);
+        user_switch_override(&w_fwd_win_override, false);
+        user_switch_override(&w_bck_win_override, false);
     }
     if (!user_config.override_word_dl_apl) {
-        switch_override(&w_del_mac_override, false);
+        user_switch_override(&w_del_mac_override, false);
     }
     if (!user_config.override_word_dl_lnx) {
-        switch_override(&w_del_win_override, false);
+        user_switch_override(&w_del_win_override, false);
     }
 
     if (!user_config.override_modded_esc) {
-        switch_override(&ctrl_tab_override, false);
-        switch_override(&alt_tab_override, false);
-        switch_override(&cmd_tab_override, false);
-        switch_override(&shift_tab_override, false);
+        user_switch_override(&ctrl_tab_override, false);
+        user_switch_override(&alt_tab_override, false);
+        user_switch_override(&cmd_tab_override, false);
+        user_switch_override(&shift_tab_override, false);
     }
 
     if (user_config.is_macos || user_config.is_ios || !user_config.override_home) {
-        switch_override(&home_key_override, false);
+        user_switch_override(&home_key_override, false);
     }
     if (user_config.is_macos || user_config.is_ios || !user_config.override_end) {
-        switch_override(&end_key_override, false);
+        user_switch_override(&end_key_override, false);
     }
 
     if (!user_config.override_linux_cmd) {
-        switch_linux_cmd(false);
+        user_switch_linux_cmd(false);
     }
 
     if (!user_config.is_jis_mode) {
-        switch_jis(false);
+        user_switch_jis(false);
     }
 
     if (user_config.fnc_tap) {
