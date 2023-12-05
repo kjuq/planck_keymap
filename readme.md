@@ -33,6 +33,8 @@ Update sparse-checkout
 
 !/layouts/community
 !/users
+
+!/docs/zh-cn
 ```
 
 Then reload
@@ -66,9 +68,10 @@ To use clangd and suppress inconpatible flags' errors
 nvim qmk_firmware/.clangd
 ```
 
-Add them to `CompileFlags/Remove`
+Append them to `CompileFlags/Remove`
 
 ```yaml
+---
 CompileFlags:
   Remove:
     - -mcpu=*
@@ -82,12 +85,17 @@ It should be like below
 ```yaml
 CompileFlags:
   Add: [-Wno-unknown-attributes, -Wno-maybe-uninitialized, -Wno-unknown-warning-option]
+  Remove: [-W*, -mcall-prologues]
+  Compiler: clang
+---
+CompileFlags:
   Remove:
-    - -W*
-    - -mcall-prologues
     - -mcpu=*
     - -mfpu=*
     - -mfloat-abi=*
     - -mno-unaligned-access
-  Compiler: clang
+Diagnostics:
+  Suppress:
+    - unused-includes
+    - unused-parameter
 ```

@@ -1,4 +1,7 @@
-// songs
+#pragma once
+
+#include QMK_KEYBOARD_H
+
 float plover_song[][2] = SONG(PLOVER_SOUND);
 float plover_gb_song[][2] = SONG(PLOVER_GOODBYE_SOUND);
 float major_song[][2] = SONG(MAJOR_SOUND);

@@ -1,3 +1,7 @@
+#pragma once
+
+#include QMK_KEYBOARD_H
+
 // user defined keycodes
 #define CMD_SPC LGUI_T(KC_SPC)
 #define ALT_SPC RALT_T(KC_SPC)
@@ -19,5 +23,34 @@
 #define EISU KC_LNG2
 #define KANA KC_LNG1
 
-#define HSV_ADJUST  HSV_PURPLE
-#define HSV_BACKLIT HSV_BLUE
+enum planck_keycodes {
+    QWERTY = SAFE_RANGE,
+    COLEMAK,
+    LNG_TAP,
+    ADJUST,
+    ADJUST2,
+    EXT_LYR,
+    KO_TB,
+    KO_EN,
+    KO_BS,
+    KO_DL,
+    KO_AR,
+    KO_HM,
+    KO_ED,
+    KO_CTLK,
+    KO_CTLO,
+    KO_CMSP,
+    KO_WD,
+    KO_WDDL,
+    KO_CTLU,
+    KO_CMDV,
+    KO_CMDD,
+    KO_CMDQ,
+    KO_MTAB,
+    KO_LXCM,
+    KO_JIS,
+    KO_PRNT,
+    LT_FNC,
+    MT_SPC,
+    HOLDLST,
+};

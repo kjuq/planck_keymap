@@ -1,3 +1,9 @@
+#pragma once
+
+#include QMK_KEYBOARD_H
+
+#include "user_eeprom.h"
+
 void common_win_linux(void) {
     if (user_config.override_word_mv_apl || user_config.override_word_mv_lnx) {
         user_config.override_word_mv_lnx = true;

@@ -1,3 +1,5 @@
+#pragma once
+
 typedef union {
     uint32_t raw;
     struct {
@@ -30,3 +32,5 @@ typedef union {
         bool spc_tap: 1;
     };
 } user_config_t;
+
+user_config_t user_config;

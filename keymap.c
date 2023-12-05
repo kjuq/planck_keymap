@@ -1,12 +1,28 @@
 #include QMK_KEYBOARD_H
+#include "quantum.h"
 
-#include "action_layer.h"
 #include "keycodes.h"
-#include "keymap.h"
 
-#include "overrides.c"
-#include "init.c"
-#include "utils.c"
+#include "mousekey.h"
+#include "quantum_keycodes.h"
+#include "song_list.h"
+
+#ifdef AUDIO_ENABLE
+#include "muse.h"
+#include "user_songs.h"
+#endif
+
+#include "user_keycodes.h"
+#include "user_layers.h"
+#include "user_layouts.c"
+
+#define OVERRIDE_MAX 100
+
+static bool false_const = false;
+
+#include "user_overrides.c"
+#include "user_init.c"
+#include "user_utils.c"
 
 #include "os_detection.h"
 
@@ -88,31 +104,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case ADJUST:
             if (record->event.pressed) {
                 if (IS_LAYER_OFF(_ADJUST)) {
-                    enter_layer(_ADJUST, HSV_ADJUST);
+                    user_enter_layer(_ADJUST, HSV_ADJUST);
                 } else {
-                    exit_layer();
+                    user_exit_layer();
                 }
             }
             return false;
         case ADJUST2:
             if (record->event.pressed) {
                 if (IS_LAYER_OFF(_ADJUST2)) {
-                    enter_layer(_ADJUST2, HSV_BACKLIT);
+                    user_enter_layer(_ADJUST2, HSV_ADJUST2);
                 } else {
-                    exit_layer();
+                    user_exit_layer();
                 }
             }
             return false;
         case MOUSE:
             if (record->tap.count && record->event.pressed) {
-                enter_layer(_MOUSE, 40, 255, 255);
+                user_enter_layer(_MOUSE, 40, 255, 255);
                 return false;
             }
             return true;
 
         // Extra keys
         case EXT_LYR:
-            if (record->event.pressed) { exit_layer(); }
+            if (record->event.pressed) { user_exit_layer(); }
             return false;
         case HOLDLST:
             if (record->event.pressed) {
@@ -146,7 +162,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // Key override
         case KO_TOGG:
             if (record->event.pressed) {
-                react_key_press_by_RGB(HSV_ORANGE);
+                user_react_key_press_by_RGB(HSV_ORANGE);
             }
             return true;
 
