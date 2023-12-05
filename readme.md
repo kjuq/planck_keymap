@@ -43,6 +43,16 @@ Then reload
 git sparse-checkout reapply
 ```
 
+Ignore keymap. Add this line to `.gitignore`.
+
+```bash
+nvim .gitignore
+```
+
+```gitignore
+/keyboards/planck/keymaps/*
+```
+
 Clone this repository
 
 ```bash
