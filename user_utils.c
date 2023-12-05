@@ -40,3 +40,13 @@ void user_override_toggle_post(bool enable) {
         user_react_key_press(HSV_BLUE); // disable
     }
 }
+
+bool user_is_apple(void) {
+    user_config.raw = eeconfig_read_user();
+    return user_config.is_macos || user_config.is_ios;
+}
+
+bool user_is_lnxwin(void) {
+    user_config.raw = eeconfig_read_user();
+    return user_config.is_linux || user_config.is_windows;
+}

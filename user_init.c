@@ -1,37 +1,13 @@
 #pragma once
 
+#include "user_init.h"
+
 #include QMK_KEYBOARD_H
 
 #include "user_eeprom.h"
 #include "user_overrides_utils.c"
 #include "user_layers.h"
-
-void _common_win_linux(void) {
-    if (user_config.override_word_mv_apl || user_config.override_word_mv_lnx) {
-        user_config.override_word_mv_lnx = true;
-        user_config.override_word_mv_apl = false;
-    }
-    if (user_config.override_word_dl_apl || user_config.override_word_dl_lnx) {
-        user_config.override_word_dl_lnx = true;
-        user_config.override_word_dl_apl = false;
-    }
-    // user_config.override_cmd_v = false;
-    user_config.override_linux_cmd = true;
-    eeconfig_update_user(user_config.raw);
-}
-
-void _common_apple(void) {
-    if (user_config.override_word_mv_apl || user_config.override_word_mv_lnx) {
-        user_config.override_word_mv_apl = true;
-        user_config.override_word_mv_lnx = false;
-    }
-    if (user_config.override_word_dl_apl || user_config.override_word_dl_lnx) {
-        user_config.override_word_dl_apl = true;
-        user_config.override_word_dl_lnx = false;
-    }
-    user_config.override_linux_cmd = false;
-    eeconfig_update_user(user_config.raw);
-}
+#include "user_utils.c"
 
 void user_init_macos(void) {
     user_config.raw        = eeconfig_read_user();
@@ -75,6 +51,33 @@ void user_init_unsure(void) {
     user_config.is_windows = false;
     user_config.is_linux   = false;
     user_config.is_ios     = false;
+    eeconfig_update_user(user_config.raw);
+}
+
+void _common_win_linux(void) {
+    if (user_config.override_word_mv_apl || user_config.override_word_mv_lnx) {
+        user_config.override_word_mv_lnx = true;
+        user_config.override_word_mv_apl = false;
+    }
+    if (user_config.override_word_dl_apl || user_config.override_word_dl_lnx) {
+        user_config.override_word_dl_lnx = true;
+        user_config.override_word_dl_apl = false;
+    }
+    // user_config.override_cmd_v = false;
+    user_config.override_linux_cmd = true;
+    eeconfig_update_user(user_config.raw);
+}
+
+void _common_apple(void) {
+    if (user_config.override_word_mv_apl || user_config.override_word_mv_lnx) {
+        user_config.override_word_mv_apl = true;
+        user_config.override_word_mv_lnx = false;
+    }
+    if (user_config.override_word_dl_apl || user_config.override_word_dl_lnx) {
+        user_config.override_word_dl_apl = true;
+        user_config.override_word_dl_lnx = false;
+    }
+    user_config.override_linux_cmd = false;
     eeconfig_update_user(user_config.raw);
 }
 
@@ -138,10 +141,10 @@ void user_reload_user_eeprom(void) {
         user_switch_override(&shift_tab_override, false);
     }
 
-    if (user_config.is_macos || user_config.is_ios || !user_config.override_home) {
+    if (user_is_apple() || !user_config.override_home) {
         user_switch_override(&home_key_override, false);
     }
-    if (user_config.is_macos || user_config.is_ios || !user_config.override_end) {
+    if (user_is_apple() || !user_config.override_end) {
         user_switch_override(&end_key_override, false);
     }
 

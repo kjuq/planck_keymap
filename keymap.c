@@ -1,10 +1,10 @@
+#include "action_util.h"
 #include QMK_KEYBOARD_H
 
 #include "quantum.h"
 #include "keycodes.h"
 #include "os_detection.h"
 
-#include "user_songs.h"
 #include "user_keycodes.h"
 #include "user_layers.h"
 #include "user_overrides_utils.c"
@@ -13,9 +13,6 @@
 #include "user_utils.c"
 
 #include "user_layouts.c" // necessary; setting layouts
-
-static bool is_apple;
-static bool is_lnxwin;
 
 static uint16_t last_keycode;
 
@@ -52,11 +49,6 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 }
 
 void keyboard_post_init_user(void) {
-    // debug_enable=true;
-    // debug_matrix=true;
-    // debug_keyboard=true;
-    // debug_mouse=true;
-
     wait_ms(500); // wait to detect OS properly
 
     if (detected_host_os() == OS_MACOS) {
@@ -70,9 +62,6 @@ void keyboard_post_init_user(void) {
     } else {
         user_init_unsure();
     }
-
-    is_apple  = user_config.is_macos || user_config.is_ios;
-    is_lnxwin = user_config.is_linux || user_config.is_windows;
 
     user_reload_user_eeprom();
 }
@@ -122,21 +111,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
 
         // Hooks
-        case DM_REC1:
-            if (record->event.pressed) {
-                PLAY_SONG(caps_lock_on_song);
-            }
-            return true;
-        case DM_REC2:
-            if (record->event.pressed) {
-                PLAY_SONG(caps_lock_off_song);
-            }
-            return true;
-        case DM_RSTP:
-            if (record->event.pressed) {
-                PLAY_SONG(unicode_windows_song);
-            }
-            return true;
         case KO_TOGG:
             if (record->event.pressed) {
                 user_react_key_press(HSV_ORANGE);
@@ -226,7 +200,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KO_WD:
             if (record->event.pressed) {
                 bool cur_status;
-                if (is_apple) {
+                if (user_is_apple()) {
                     cur_status                       = user_config.override_word_mv_apl;
                     user_config.override_word_mv_apl = cur_status ? false : true;
                 } else {
@@ -239,7 +213,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KO_WDDL:
             if (record->event.pressed) {
                 bool cur_status;
-                if (is_apple) {
+                if (user_is_apple()) {
                     cur_status                       = user_config.override_word_dl_apl;
                     user_config.override_word_dl_apl = cur_status ? false : true;
                 } else {

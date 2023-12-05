@@ -10,7 +10,8 @@
 
 #define ENCODER_RESOLUTION 4
 
-//#define ACTION_DEBUG
+// Frequency of matrix scanning
+// #define DEBUG_MATRIX_SCAN_RATE
 
 // Tap-Hold Configuration Options
 #define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
@@ -56,6 +57,3 @@
 
 // Turn off RGB when computer went to sleep
 #define RGBLIGHT_SLEEP
-
-// Prevent freezing
-#define DYNAMIC_MACRO_NO_NESTING
