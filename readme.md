@@ -104,8 +104,4 @@ CompileFlags:
     - -mfpu=*
     - -mfloat-abi=*
     - -mno-unaligned-access
-Diagnostics:
-  Suppress:
-    - unused-includes
-    - unused-parameter
 ```
